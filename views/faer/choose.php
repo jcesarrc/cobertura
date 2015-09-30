@@ -18,13 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             echo '<label class="control-label">Subir archivo en formato separado por comas (.csv)</label><br>';
             echo FileInput::widget([
-                'name' => 'attachment_file',
+                'name' => 'attachment',
                 'options' => [
                     'accept' => 'text/csv',
                     'multiple' => false
                 ],
                 'pluginOptions' => [
-                    'uploadUrl' => Url::to(['/site/file-upload']),
+                    'uploadUrl' => Url::to(['faer/file-upload']),
                 ]
             ]);
             ?>

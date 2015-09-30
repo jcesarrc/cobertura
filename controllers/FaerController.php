@@ -102,6 +102,81 @@ class FaerController extends Controller
         ]);
     }
 
+
+    public function actionFileUpload(){
+
+        if (empty($_FILES['attachment'])) {
+            echo json_encode(['error' => 'No seleccionó ningun archivo']);
+            return;
+        }
+
+        // a flag to see if everything is ok
+        $success = null;
+
+        $file = $_FILES['attachment'];
+
+        $target = '/var/www/html/cobertura/web/files/';
+
+        $filename = $file['name'];
+
+        if(file_exists($target.$filename)) unlink($target.$filename);
+
+        $success = move_uploaded_file($_FILES['attachment']['tmp_name'], $target.$filename) ? true : false;
+
+        // check and process based on successful status
+        if ($success === true) {
+            $row = 1;
+            if (($handle = fopen($target.$filename, "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+
+                    $c=0;
+
+                    $model = new Faer();
+                    $model->faer_no = $data[$c++];
+                    $model->radicado = $data[$c++];
+                    $model->proyecto = $data[$c++];
+                    $model->nit_presento = $data[$c++];
+                    $model->nit_ejecuto = $data[$c++];
+                    $model->valor_total = $data[$c++];
+                    $model->cofinanciacion = $data[$c++];
+                    $model->solicitud_faer = $data[$c++];
+                    $model->usuarios_ampliacion = $data[$c++];
+                    $model->usuarios_mejoramiento = $data[$c++];
+                    $model->valor_usuario = $data[$c++];
+                    $model->departamento = $data[$c++];
+                    $model->municipio = $data[$c++];
+                    $model->latitud = $data[$c++];
+                    $model->longitud = $data[$c++];
+                    $model->fecha_presentacion = $data[$c++];
+                    $model->fecha_aprobacion = $data[$c++];
+                    $model->fecha_ajuste = $data[$c++];
+                    $model->cup = $data[$c++];
+                    $model->cob = $data[$c++];
+                    $model->nbi = $data[$c++];
+                    $model->un = $data[$c++];
+                    $model->oep = $data[$c++];
+                    $model->save();
+
+                    $row++;
+                }
+                fclose($handle);
+            }
+            $this->redirect(['index']);
+            //$output = ['success'=>'OK'];
+
+        } elseif ($success === false) {
+            $output = ['error' => 'Error subiendo archivo'];
+            // delete any uploaded files
+            //unlink($file);
+        } else {
+            $output = ['error' => 'No se procesó el archivo'];
+        }
+
+        // return a json encoded response for plugin to process successfully
+        echo json_encode($output);
+
+    }
+
     /**
      * Deletes an existing Faer model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
