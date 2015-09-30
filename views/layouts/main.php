@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
+raoul2000\bootswatch\BootswatchAsset::$theme = 'cosmo';
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -62,6 +63,8 @@ AppAsset::register($this);
             [
                 'label' => 'Proyectos',
                 'items' => [
+                    ['label' => 'Proyecto FAER', 'url' => ['/faer/index']],
+                    '<li class="divider"></li>',
                     ['label' => 'Tipos de proyecto', 'url' => ['/tipo-proyecto/index']],
                     '<li class="divider"></li>',
                     ['label' => 'Subtipo de proyecto', 'url' => ['/subtipo-proyecto/index']],
