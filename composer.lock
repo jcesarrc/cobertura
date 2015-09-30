@@ -5,7 +5,6 @@
         "This file is @generated automatically"
     ],
     "hash": "dc1e3e3d2df9e4eac69d79de6e388d88",
-    "content-hash": "44c133c86eb6b6c99b5861f586586db4",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -304,16 +303,16 @@
         },
         {
             "name": "dektrium/yii2-user",
-            "version": "v0.9.4",
+            "version": "v0.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dektrium/yii2-user.git",
-                "reference": "891fe6c3957bde7f3a7893775fd304fc84140599"
+                "reference": "84100e0e63e2052ef4ddd12f1840dfd092446e23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dektrium/yii2-user/zipball/891fe6c3957bde7f3a7893775fd304fc84140599",
-                "reference": "891fe6c3957bde7f3a7893775fd304fc84140599",
+                "url": "https://api.github.com/repos/dektrium/yii2-user/zipball/84100e0e63e2052ef4ddd12f1840dfd092446e23",
+                "reference": "84100e0e63e2052ef4ddd12f1840dfd092446e23",
                 "shasum": ""
             },
             "require": {
@@ -333,8 +332,7 @@
             "extra": {
                 "bootstrap": "dektrium\\user\\Bootstrap",
                 "branch-alias": {
-                    "dev-master": "0.9.x-dev",
-                    "dev-develop": "1.0.x-dev"
+                    "dev-master": "1.0.x-dev"
                 },
                 "asset-installer-paths": {
                     "npm-asset-library": "vendor/npm",
@@ -364,7 +362,7 @@
                 "yii2",
                 "yii2-user"
             ],
-            "time": "2015-04-06 09:21:39"
+            "time": "2015-09-27 14:49:11"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -2004,16 +2002,16 @@
         },
         {
             "name": "thomaspark/bootswatch",
-            "version": "v3.3.5+3",
+            "version": "v3.3.5+4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thomaspark/bootswatch.git",
-                "reference": "913f54b9483b99fa12c7feccfa18ee5cc0206043"
+                "reference": "ceb6bc5d80af9c7905b54ac4146339e6b1c68490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/913f54b9483b99fa12c7feccfa18ee5cc0206043",
-                "reference": "913f54b9483b99fa12c7feccfa18ee5cc0206043",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/ceb6bc5d80af9c7905b54ac4146339e6b1c68490",
+                "reference": "ceb6bc5d80af9c7905b54ac4146339e6b1c68490",
                 "shasum": ""
             },
             "suggest": {
@@ -2058,7 +2056,7 @@
                 }
             ],
             "description": "Themes for Bootstrap",
-            "time": "2015-09-03 20:39:50"
+            "time": "2015-09-24 02:47:41"
         },
         {
             "name": "yiisoft/yii2",
@@ -2066,12 +2064,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "fcc7f0899a1f019dac17e0290f57f5ef211b70d5"
+                "reference": "d0ecf6e89c7c5ac6afd48f6be521c1d0953f160f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/fcc7f0899a1f019dac17e0290f57f5ef211b70d5",
-                "reference": "fcc7f0899a1f019dac17e0290f57f5ef211b70d5",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d0ecf6e89c7c5ac6afd48f6be521c1d0953f160f",
+                "reference": "d0ecf6e89c7c5ac6afd48f6be521c1d0953f160f",
                 "shasum": ""
             },
             "require": {
@@ -2147,7 +2145,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-09-23 12:06:23"
+            "time": "2015-09-27 17:42:13"
         },
         {
             "name": "yiisoft/yii2-authclient",
@@ -2155,12 +2153,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-authclient.git",
-                "reference": "29084b15fd366eef84562c439fb5940b099fd8e9"
+                "reference": "a5390c9fb2ba5195ec509963d212887b09e708e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/29084b15fd366eef84562c439fb5940b099fd8e9",
-                "reference": "29084b15fd366eef84562c439fb5940b099fd8e9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/a5390c9fb2ba5195ec509963d212887b09e708e2",
+                "reference": "a5390c9fb2ba5195ec509963d212887b09e708e2",
                 "shasum": ""
             },
             "require": {
@@ -2195,7 +2193,7 @@
                 "oauth",
                 "yii2"
             ],
-            "time": "2015-09-17 14:10:10"
+            "time": "2015-09-23 17:27:40"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -2203,12 +2201,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "c25dc1e23d188954b546f6bd95def1027d91113b"
+                "reference": "57bfe7637a96e7b53012696d1fd557f5a36d0712"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/c25dc1e23d188954b546f6bd95def1027d91113b",
-                "reference": "c25dc1e23d188954b546f6bd95def1027d91113b",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/57bfe7637a96e7b53012696d1fd557f5a36d0712",
+                "reference": "57bfe7637a96e7b53012696d1fd557f5a36d0712",
                 "shasum": ""
             },
             "require": {
@@ -2245,7 +2243,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2015-09-17 13:11:22"
+            "time": "2015-09-23 17:48:57"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -2253,12 +2251,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "6b2a2b3bb83d4b3dd791f76e64c48973ce01bac6"
+                "reference": "87cd1f2e0dd454a837607de612b1057840effe8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/6b2a2b3bb83d4b3dd791f76e64c48973ce01bac6",
-                "reference": "6b2a2b3bb83d4b3dd791f76e64c48973ce01bac6",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/87cd1f2e0dd454a837607de612b1057840effe8b",
+                "reference": "87cd1f2e0dd454a837607de612b1057840effe8b",
                 "shasum": ""
             },
             "require": {
@@ -2292,7 +2290,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2015-06-11 19:55:58"
+            "time": "2015-09-25 10:48:24"
         },
         {
             "name": "yiisoft/yii2-jui",
@@ -2652,12 +2650,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "6519954dc8dd16050d886d1266d6248cbae2d14f"
+                "reference": "3816e084ed2f96faeecbdb83266fb4212c553648"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/6519954dc8dd16050d886d1266d6248cbae2d14f",
-                "reference": "6519954dc8dd16050d886d1266d6248cbae2d14f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/3816e084ed2f96faeecbdb83266fb4212c553648",
+                "reference": "3816e084ed2f96faeecbdb83266fb4212c553648",
                 "shasum": ""
             },
             "require": {
@@ -2697,7 +2695,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2015-08-31 23:04:33"
+            "time": "2015-09-24 22:57:56"
         }
     ],
     "aliases": [],
