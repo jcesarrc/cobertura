@@ -27,7 +27,9 @@
         "kartik-v/yii2-money": "*",
         "kartik-v/yii2-widget-depdrop": "@dev",
         "himiklab/yii2-recaptcha-widget": "*",
-        "kartik-v/yii2-popover-x": "dev-master"
+        "kartik-v/yii2-popover-x": "dev-master",
+        "dmstr/yii2-adminlte-asset": "2.*",
+        "kartik-v/yii2-widget-fileinput": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

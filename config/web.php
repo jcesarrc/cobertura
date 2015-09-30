@@ -1,12 +1,14 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
+$modules= require(__DIR__ . '/modules.php');
 
 $config = [
     'id' => 'basic',
     'name' => 'Sistema de Cobertura',
     'basePath' => dirname(__DIR__),
     'language' => 'es',
+    'modules' => $modules,
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
@@ -47,6 +49,10 @@ $config = [
                     'sourceLanguage' => 'en-US',
                 ],
             ],
+        ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'locale'=> 'es-CO'
         ],
         'db' => require(__DIR__ . '/db.php'),
         /*
