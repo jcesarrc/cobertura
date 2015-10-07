@@ -17,13 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'numero') ?>
 
+    <?= $form->field($model, 'proyecto') ?>
+
     <?= $form->field($model, 'nit_presento') ?>
 
-    <?= $form->field($model, 'valor_total') ?>
+    <?= $form->field($model, 'radicado') ?>
 
-    <?= $form->field($model, 'solicitud_faer') ?>
-
-    <?= $form->field($model, 'usuarios_ampliacion') ?>
+    <?= $form->field($model, 'fecha_aprobacion') ?>
 
     <?php // echo $form->field($model, 'valor_usuario') ?>
 
