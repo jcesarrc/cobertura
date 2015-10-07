@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\DetalleProyecto;
 use Yii;
 use app\models\Faer;
 use app\models\FaerSearch;
@@ -58,17 +59,18 @@ class FaerController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($tipo_proyecto=0)
     {
         $model = new Faer();
-
+        if(!isset($tipo_proyecto)&&$tipo_proyecto==0) $tipo_proyecto = 1;
+        $model->tipo_proyecto=$tipo_proyecto;
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->numero]);
+            return $this->redirect(['/detalle-proyecto/create', 'numero' => $model->numero]);
         } else {
             return $this->render('create', [
                 'model' => $model,
