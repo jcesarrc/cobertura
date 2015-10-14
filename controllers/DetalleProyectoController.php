@@ -115,6 +115,14 @@ class DetalleProyectoController extends Controller
         return $this->redirect(['index']);
     }
 
+
+     public function actionDeleteAndReturn($id, $numero)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['create','numero'=>$numero]);
+    }
+
     /**
      * Finds the DetalleProyecto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

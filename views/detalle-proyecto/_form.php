@@ -4,6 +4,7 @@ use kartik\money\MaskMoney;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use app\models\Divipola;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 
@@ -11,6 +12,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\DetalleProyecto */
 /* @var $form yii\widgets\ActiveForm */
+setlocale(LC_MONETARY, 'es_CO');
 ?>
 
 <div class="detalle-proyecto-form">
@@ -50,22 +52,22 @@ use yii\widgets\DetailView;
                     <?php foreach ($lista_detalles as $item): ?>
                         <tr>
                             <td>
-                                <?= $item->id_departamento ?>
+                                <?= Divipola::findOne(['id'=>$item->id_departamento])->nombre ?>
                             </td>
                             <td>
-                                <?= $item->id_municipio ?>
+                                <?= Divipola::findOne(['id'=>$item->id_municipio])->nombre ?>
                             </td>
                             <td>
                                 <?= $item->descripcion_veredas ?>
                             </td>
                             <td>
-                                <?= $item->total ?>
+                                <?= '$'.money_format('%(#10n',$item->total) ?>
                             </td>
                             <td>
-                                <?= $item->cofinanciacion ?>
+                                <?= '$'.money_format('%(#10n',$item->cofinanciacion) ?>
                             </td>
                             <td>
-                                <?= $item->aporte_fondo ?>
+                                <?= '$'.money_format('%(#10n',$item->aporte_fondo) ?>
                             </td>
                             <td>
                                 <?= $item->usuarios_existentes ?>

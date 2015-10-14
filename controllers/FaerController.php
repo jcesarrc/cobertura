@@ -128,42 +128,54 @@ class FaerController extends Controller
         // check and process based on successful status
         if ($success === true) {
             $row = 1;
+            $numero_faer = 0;
+            $numero = 0;
             if (($handle = fopen($target.$filename, "r")) !== FALSE) {
-                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     $c=0;
-
-                    $model = new Faer();
-                    $model->faer_no = $data[$c++];
-                    $model->radicado = $data[$c++];
-                    $model->proyecto = $data[$c++];
-                    $model->nit_presento = $data[$c++];
-                    $model->nit_ejecuto = $data[$c++];
-                    $model->valor_total = $data[$c++];
-                    $model->cofinanciacion = $data[$c++];
-                    $model->solicitud_faer = $data[$c++];
-                    $model->usuarios_ampliacion = $data[$c++];
-                    $model->usuarios_mejoramiento = $data[$c++];
-                    $model->valor_usuario = $data[$c++];
-                    $model->departamento = $data[$c++];
-                    $model->municipio = $data[$c++];
-                    $model->latitud = $data[$c++];
-                    $model->longitud = $data[$c++];
-                    $model->fecha_presentacion = $data[$c++];
-                    $model->fecha_aprobacion = $data[$c++];
-                    $model->fecha_ajuste = $data[$c++];
-                    $model->cup = $data[$c++];
-                    $model->cob = $data[$c++];
-                    $model->nbi = $data[$c++];
-                    $model->un = $data[$c++];
-                    $model->oep = $data[$c++];
-                    $model->save();
-
+                    $no_faer = $data[$c++];
+                    $tmp = Faer::find()->where(['faer_no'=>$no_faer]);
+                    if(!$tmp->exists()){
+                        $model = new Faer();
+                        $model->faer_no = $no_faer;
+                        $model->radicado = $data[$c++];
+                        $model->proyecto = $data[$c++];
+                        $model->nit_presento = $data[$c++];
+                        $model->nit_ejecuto = $data[$c++];
+                        $model->fecha_radicacion = $data[$c++];
+                        $model->fecha_aprobacion = $data[$c++];
+                        $model->oep = $data[$c++];
+                        $model->save();
+                        $numero = $model->numero;
+                        if($numero==null){
+                            $tmp = Faer::findOne(['faer_no'=>$no_faer]);
+                            $numero = $tmp->numero;
+                        }
+                    } else {
+                        $c = 8;
+                        $tmp = Faer::findOne(['faer_no'=>$no_faer]);
+                        $numero = $tmp->numero;
+                    }
+                    if($numero!=0){
+                        $model_detalle = new DetalleProyecto();
+                        $model_detalle->numero = $numero;
+                        $model_detalle->id_departamento = $data[$c++];
+                        $model_detalle->id_municipio = $data[$c++];
+                        $model_detalle->descripcion_veredas = $data[$c++];
+                        $model_detalle->latitud = $data[$c++];
+                        $model_detalle->longitud = $data[$c++];
+                        $model_detalle->total = $data[$c++];
+                        $model_detalle->cofinanciacion = $data[$c++];
+                        $model_detalle->aporte_fondo = $data[$c++];
+                        $model_detalle->usuarios_existentes = $data[$c++];
+                        $model_detalle->usuarios_nuevos = $data[$c++];
+                        $model_detalle->save();
+                    }
                     $row++;
                 }
                 fclose($handle);
             }
-            $this->redirect(['index']);
+            //$this->redirect(['index']);
             $output = ['error'=>'Carga exitosa'];
 
         } elseif ($success === false) {

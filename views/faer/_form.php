@@ -72,7 +72,7 @@ use kartik\money\MaskMoney;
 
 <div class="form-group">
     <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Guardar y registrar detalles del proyecto') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    <?= Html::a('Actualizar Cobertura', ['detalle-proyecto/create', 'numero' => $model->numero], ['class' => 'btn btn-default']) ?>
+    <?php echo !$model->isNewRecord ? (Html::a('Actualizar Cobertura', ['detalle-proyecto/create', 'numero' => $model->numero], ['class' => 'btn btn-default'])) : ""; ?>
 
 </div>
 
