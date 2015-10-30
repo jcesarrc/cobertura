@@ -8,9 +8,9 @@ use Yii;
  * This is the model class for table "divipola".
  *
  * @property integer $id
- * @property string $nombre
- * @property string $tipo
- * @property string $padre
+ * @property integer $id_dpto
+ * @property string $dpto
+ * @property string $mpio
  *
  * @property AreaCobertura[] $areaCoberturas
  * @property AreaCobertura[] $areaCoberturas0
@@ -34,9 +34,9 @@ class Divipola extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'integer'],
-            [['nombre', 'tipo', 'padre'], 'string'],
+            [['id','id_dpto'], 'required'],
+            [['id','id_dpto'], 'integer'],
+            [['dpto', 'mpio'], 'string'],
         ];
     }
 
@@ -46,52 +46,13 @@ class Divipola extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'nombre' => Yii::t('app', 'Nombre'),
-            'tipo' => Yii::t('app', 'Tipo'),
-            'padre' => Yii::t('app', 'Padre'),
+            'id' => Yii::t('app', 'id_mpio'),
+            'id_dpto' => Yii::t('app', 'id_dpto'),
+            'dpto' => Yii::t('app', 'Departamento'),
+            'mpio' => Yii::t('app', 'Municipio'),
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAreaCoberturas()
-    {
-        return $this->hasMany(AreaCobertura::className(), ['departamento' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAreaCoberturas0()
-    {
-        return $this->hasMany(AreaCobertura::className(), ['municipio' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAreaCoberturas1()
-    {
-        return $this->hasMany(AreaCobertura::className(), ['localidad' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAreaCoberturas2()
-    {
-        return $this->hasMany(AreaCobertura::className(), ['barrio' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProyectos()
-    {
-        return $this->hasMany(Proyecto::className(), ['departamento' => 'id']);
-    }
 
     /**
      * @inheritdoc

@@ -9,28 +9,18 @@ use Yii;
  *
  * @property integer $numero
  * @property string $nit_presento
- * @property string $valor_total
- * @property string $solicitud_faer
- * @property integer $tipo_proyecto
- * @property string $valor_usuario
  * @property integer $radicado
- * @property string $cup
- * @property string $cob
- * @property string $nbi
- * @property string $un
  * @property string $oep
  * @property string $faer_no
  * @property string $proyecto
  * @property string $nit_ejecuto
- * @property integer $departamento
- * @property integer $municipio
- * @property string $latitud
- * @property string $longitud
  * @property string $fecha_radicacion
  * @property string $fecha_aprobacion
- * @property string $fecha_ajuste
- * @property integer $usuarios_mejoramiento
- * @property string $cofinanciacion
+ * @property integer $tipo_proyecto
+ *
+ * @property DetalleProyecto[] $detalleProyectos
+ * @property OperadorRed $nitPresento
+ * @property OperadorRed $nitEjecuto
  */
 class Faer extends \yii\db\ActiveRecord
 {
@@ -48,14 +38,15 @@ class Faer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['faer_no','proyecto','nit_presento','fecha_radicacion'],'required'],
+            [['radicado', 'tipo_proyecto'], 'integer'],
             [['oep'], 'number'],
-            [['radicado','tipo_proyecto'], 'integer'],
             [['fecha_radicacion', 'fecha_aprobacion'], 'safe'],
             [['nit_presento', 'nit_ejecuto'], 'string', 'max' => 20],
             [['faer_no'], 'string', 'max' => 12],
-            [['proyecto'], 'string', 'max' => 500],
+            [['proyecto'], 'string', 'max' => 9999],
             [['faer_no'], 'unique'],
+            [['nit_presento'], 'exist', 'skipOnError' => true, 'targetClass' => OperadorRed::className(), 'targetAttribute' => ['nit_presento' => 'nit']],
+            [['nit_ejecuto'], 'exist', 'skipOnError' => true, 'targetClass' => OperadorRed::className(), 'targetAttribute' => ['nit_ejecuto' => 'nit']],
         ];
     }
 
@@ -66,16 +57,40 @@ class Faer extends \yii\db\ActiveRecord
     {
         return [
             'numero' => Yii::t('app', 'Numero'),
-            'faer_no' => Yii::t('app', 'Faer No'),
-            'radicado' => Yii::t('app', 'Radicado'),
-            'proyecto' => Yii::t('app', 'Proyecto'),
             'nit_presento' => Yii::t('app', 'Nit Presento'),
-            'nit_ejecuto' => Yii::t('app', 'Nit Ejecuto'),
-            'fecha_radicacion' => Yii::t('app', 'Fecha Presentacion'),
-            'fecha_aprobacion' => Yii::t('app', 'Fecha Aprobacion'),
+            'radicado' => Yii::t('app', 'Radicado'),
             'oep' => Yii::t('app', 'Oep'),
+            'faer_no' => Yii::t('app', 'Faer No'),
+            'proyecto' => Yii::t('app', 'Proyecto'),
+            'nit_ejecuto' => Yii::t('app', 'Nit Ejecuto'),
+            'fecha_radicacion' => Yii::t('app', 'Fecha Radicacion'),
+            'fecha_aprobacion' => Yii::t('app', 'Fecha Aprobacion'),
             'tipo_proyecto' => Yii::t('app', 'Tipo Proyecto'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDetalleProyectos()
+    {
+        return $this->hasMany(DetalleProyecto::className(), ['numero' => 'numero']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNitPresento()
+    {
+        return $this->hasOne(OperadorRed::className(), ['nit' => 'nit_presento']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNitEjecuto()
+    {
+        return $this->hasOne(OperadorRed::className(), ['nit' => 'nit_ejecuto']);
     }
 
     /**

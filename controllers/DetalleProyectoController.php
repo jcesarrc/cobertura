@@ -63,6 +63,7 @@ class DetalleProyectoController extends Controller
     {
         $model = new DetalleProyecto();
         $model->numero = $numero;
+        $model->aporte_fondo = $model->total - $model->cofinanciacion;
 
         $model_faer = Faer::findOne(['numero'=>$numero]);
 
@@ -72,7 +73,8 @@ class DetalleProyectoController extends Controller
 
             $model = new DetalleProyecto();
             $model->numero = $numero;
-
+            $model->aporte_fondo = $model->total - $model->cofinanciacion;
+            $this->refresh();
         }
 
         return $this->render('create', [
@@ -108,11 +110,11 @@ class DetalleProyectoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $numero)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['create', 'numero'=>$numero]);
     }
 
 

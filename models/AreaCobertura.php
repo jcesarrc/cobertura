@@ -45,7 +45,7 @@ class AreaCobertura extends \yii\db\ActiveRecord
             [['bpin', 'departamento', 'municipio', 'localidad', 'barrio'], 'integer'],
             [['tipo_servicio', 'direccion'], 'string'],
             [['longitud', 'latitud', 'capacidad_instalada', 'capacidad_almacenamiento'], 'number'],
-            [['departamento'], 'exist', 'skipOnError' => true, 'targetClass' => Divipola::className(), 'targetAttribute' => ['departamento' => 'id']],
+            [['departamento'], 'exist', 'skipOnError' => true, 'targetClass' => Divipola::className(), 'targetAttribute' => ['departamento' => 'id_dpto']],
             [['municipio'], 'exist', 'skipOnError' => true, 'targetClass' => Divipola::className(), 'targetAttribute' => ['municipio' => 'id']],
             [['localidad'], 'exist', 'skipOnError' => true, 'targetClass' => Divipola::className(), 'targetAttribute' => ['localidad' => 'id']],
             [['barrio'], 'exist', 'skipOnError' => true, 'targetClass' => Divipola::className(), 'targetAttribute' => ['barrio' => 'id']],

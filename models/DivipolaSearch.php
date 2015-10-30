@@ -19,7 +19,7 @@ class DivipolaSearch extends Divipola
     {
         return [
             [['id'], 'integer'],
-            [['nombre', 'tipo', 'padre'], 'safe'],
+            [['dpto', 'mpio'], 'safe'],
         ];
     }
 
@@ -62,10 +62,8 @@ class DivipolaSearch extends Divipola
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'nombre', $this->nombre])
-            ->andFilterWhere(['like', 'tipo', $this->tipo])
-            ->andFilterWhere(['like', 'padre', $this->padre]);
-
+        $query->andFilterWhere(['like', 'dpto', $this->dpto])
+            ->andFilterWhere(['like', 'mpio', $this->mpio]);
         return $dataProvider;
     }
 }

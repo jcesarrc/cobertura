@@ -29,7 +29,10 @@
         "himiklab/yii2-recaptcha-widget": "*",
         "kartik-v/yii2-popover-x": "dev-master",
         "dmstr/yii2-adminlte-asset": "2.*",
-        "kartik-v/yii2-widget-fileinput": "@dev"
+        "kartik-v/yii2-widget-fileinput": "@dev",
+        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-mpdf": "@dev",
+        "kartik-v/yii2-date-range": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

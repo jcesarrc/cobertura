@@ -53,17 +53,17 @@ class DetalleProyecto extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_departamento' => Yii::t('app', 'Id Departamento'),
-            'id_municipio' => Yii::t('app', 'Id Municipio'),
-            'descripcion_veredas' => Yii::t('app', 'Descripcion Veredas'),
+            'id_departamento' => Yii::t('app', 'Departamento'),
+            'id_municipio' => Yii::t('app', 'Municipio'),
+            'descripcion_veredas' => Yii::t('app', 'Veredas'),
             'latitud' => Yii::t('app', 'Latitud'),
             'longitud' => Yii::t('app', 'Longitud'),
             'total' => Yii::t('app', 'Total'),
             'aporte_fondo' => Yii::t('app', 'Aporte Fondo'),
-            'cofinanciacion' => Yii::t('app', 'Cofinanciacion'),
+            'cofinanciacion' => Yii::t('app', 'Cofinanciación'),
             'usuarios_nuevos' => Yii::t('app', 'Usuarios Nuevos'),
             'usuarios_existentes' => Yii::t('app', 'Usuarios Existentes'),
-            'numero' => Yii::t('app', 'Numero'),
+            'numero' => Yii::t('app', 'Número'),
         ];
     }
 

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Divipola;
 use app\models\DivipolaSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -117,5 +118,37 @@ class DivipolaController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+
+    public function actionCiudades()
+    {
+        //'options' => ArrayHelper::map(PartesModelo::findAll(['TipoTramite_id'=>$model->TipoTramite_id]), 'vista', 'nombre'),
+        $out = [];
+
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $data = $parents[0];
+                $list = Divipola::find()->andWhere(['id_dpto'=>$data])->asArray()->all();
+                //$out = self::getSubCatList($paso_tipotramite_id);
+                //$out = ArrayHelper::map(PartesModelo::findAll(['TipoTramite_id'=>$paso_tipotramite_id]), 'vista', 'nombre');
+
+                foreach ($list as $i => $item) {
+                    $out[] = ['id' => $item['id'], 'name' => $item['mpio']];
+                }
+
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+
     }
 }

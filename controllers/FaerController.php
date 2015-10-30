@@ -128,48 +128,50 @@ class FaerController extends Controller
         // check and process based on successful status
         if ($success === true) {
             $row = 1;
-            $numero_faer = 0;
-            $numero = 0;
             if (($handle = fopen($target.$filename, "r")) !== FALSE) {
-                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
                     $c=0;
-                    $no_faer = $data[$c++];
-                    $tmp = Faer::find()->where(['faer_no'=>$no_faer]);
-                    if(!$tmp->exists()){
+                    $n_faer = $data[$c++];
+                    if(!(Faer::find()->where(['faer_no'=>$n_faer])->exists())){
                         $model = new Faer();
-                        $model->faer_no = $no_faer;
-                        $model->radicado = $data[$c++];
+                        $model->faer_no = $n_faer;
+                        $model->radicado = intval($data[$c++]);
                         $model->proyecto = $data[$c++];
                         $model->nit_presento = $data[$c++];
                         $model->nit_ejecuto = $data[$c++];
                         $model->fecha_radicacion = $data[$c++];
                         $model->fecha_aprobacion = $data[$c++];
-                        $model->oep = $data[$c++];
-                        $model->save();
-                        $numero = $model->numero;
-                        if($numero==null){
-                            $tmp = Faer::findOne(['faer_no'=>$no_faer]);
-                            $numero = $tmp->numero;
-                        }
+                        $model->oep = doubleval($data[$c++]);
+                        $model->tipo_proyecto = 1;
+                        $numero = 0;
+                        //var_dump($model);die();
+                        if($model->save()){
+                            if(Faer::find()->where(['faer_no'=>$n_faer])->exists()) {
+                                $tmp = Faer::findOne(['faer_no'=>$n_faer]);
+                                $numero = $tmp->numero;
+                            }
+                        }else var_dump($model->getErrors());
                     } else {
                         $c = 8;
-                        $tmp = Faer::findOne(['faer_no'=>$no_faer]);
+                        $tmp = Faer::findOne(['faer_no'=>$n_faer]);
                         $numero = $tmp->numero;
                     }
                     if($numero!=0){
                         $model_detalle = new DetalleProyecto();
                         $model_detalle->numero = $numero;
-                        $model_detalle->id_departamento = $data[$c++];
-                        $model_detalle->id_municipio = $data[$c++];
+                        $model_detalle->id_departamento = intval($data[$c++]);
+                        $model_detalle->id_municipio = intval($data[$c++]);
                         $model_detalle->descripcion_veredas = $data[$c++];
-                        $model_detalle->latitud = $data[$c++];
-                        $model_detalle->longitud = $data[$c++];
-                        $model_detalle->total = $data[$c++];
-                        $model_detalle->cofinanciacion = $data[$c++];
-                        $model_detalle->aporte_fondo = $data[$c++];
-                        $model_detalle->usuarios_existentes = $data[$c++];
-                        $model_detalle->usuarios_nuevos = $data[$c++];
-                        $model_detalle->save();
+                        $model_detalle->latitud = doubleval($data[$c++]);
+                        $model_detalle->longitud = doubleval($data[$c++]);
+                        $model_detalle->total = doubleval($data[$c++]);
+                        $model_detalle->cofinanciacion = doubleval($data[$c++]);
+                        $model_detalle->aporte_fondo = doubleval($data[$c++]);
+                        $model_detalle->usuarios_existentes = intval($data[$c++]);
+                        $model_detalle->usuarios_nuevos = intval($data[$c]);
+                        if(!$model_detalle->save()){
+                            var_dump($model_detalle->getErrors());
+                        }
                     }
                     $row++;
                 }

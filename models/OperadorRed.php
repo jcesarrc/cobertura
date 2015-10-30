@@ -38,8 +38,8 @@ class OperadorRed extends \yii\db\ActiveRecord
     {
         return [
             [['id_sui'], 'required'],
-            [['id_sui', 'nit', 'telefono', 'celular'], 'integer'],
-            [['razon_social', 'contador', 'direccion'], 'string'],
+            [['id_sui', 'telefono', 'celular'], 'integer'],
+            [['razon_social', 'contador', 'direccion', 'nit'], 'string'],
             [['represetante_legal', 'revisor_fiscal', 'direccion_web'], 'string', 'max' => 255],
             [['correo'], 'string', 'max' => 100],
             [['nit'], 'unique'],
@@ -55,7 +55,7 @@ class OperadorRed extends \yii\db\ActiveRecord
             'id_sui' => Yii::t('app', 'Id Sui'),
             'nit' => Yii::t('app', 'Nit'),
             'razon_social' => Yii::t('app', 'Razon Social'),
-            'represetante_legal' => Yii::t('app', 'Represetante Legal'),
+            'represetante_legal' => Yii::t('app', 'Representante Legal'),
             'revisor_fiscal' => Yii::t('app', 'Revisor Fiscal'),
             'contador' => Yii::t('app', 'Contador'),
             'direccion' => Yii::t('app', 'Direccion'),
