@@ -63,9 +63,12 @@ class FaerSearch extends Faer
             'numero' => $this->numero,
             'radicado' => $this->radicado,
             'oep' => $this->oep,
-            'fecha_radicacion' => $this->fecha_radicacion,
-            'fecha_aprobacion' => $this->fecha_aprobacion,
         ]);
+
+        if(strlen($this->fecha_radicacion)>0)
+            $query->andFilterWhere([
+                'between', 'fecha_radicacion', substr($this->fecha_radicacion,0,10), substr($this->fecha_radicacion,12,22)
+            ]);
 
         $query->andFilterWhere(['like', 'nit_presento', $this->nit_presento])
             ->andFilterWhere(['like', 'faer_no', $this->faer_no])

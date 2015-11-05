@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 $this->title = 'Sistema de cobertura';
+
 ?>
 <!--
 <div class="site-index">

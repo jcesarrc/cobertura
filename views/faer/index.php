@@ -1,5 +1,7 @@
 <?php
 
+use kartik\daterange\DateRangePicker;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 //use yii\grid\GridView;
 use kartik\grid\GridView;
@@ -41,7 +43,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
-            'fecha_radicacion:date',
+            //'fecha_radicacion:date',
+            [
+                'attribute' => 'fecha_radicacion',
+                'value' => function ($data){
+                    return $data->fecha_radicacion;
+                },
+                'filter' =>
+                    DateRangePicker::widget([
+                        'model' => $searchModel,
+                        'attribute' => 'fecha_radicacion',
+                        'convertFormat'=>true,
+                        'pluginOptions'=>[
+                            'timePicker'=>false,
+                            'format'=>'Y-m-d'
+                        ]
+            ])],
 
             'proyecto',
 
@@ -52,6 +69,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         return app\models\Divipola::findOne(['id_dpto'=>$data->detalleProyectos[0]->id_departamento])->dpto;
                     else return "";
                 },
+                'filter' => \kartik\select2\Select2::widget([
+                    'name' => 'dpto',
+                    'data' => ArrayHelper::map(\app\models\Divipola::find()->all(), 'id_dpto', 'dpto'),
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]),
             ],
 
 

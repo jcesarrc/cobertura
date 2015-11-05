@@ -178,7 +178,7 @@ class FaerController extends Controller
                 fclose($handle);
             }
             //$this->redirect(['index']);
-            $output = ['error'=>'Carga exitosa'];
+            $output = ['success'=>'Carga exitosa'];
 
         } elseif ($success === false) {
             $output = ['error' => 'Error subiendo archivo'];

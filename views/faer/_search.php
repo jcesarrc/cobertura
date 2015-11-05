@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'radicado') ?>
 
-    <?= $form->field($model, 'fecha_aprobacion') ?>
+    <?= $form->field($model, 'fecha_radicacion') ?>
 
     <?php // echo $form->field($model, 'valor_usuario') ?>
 

@@ -60,14 +60,15 @@ $un = 0;
                         <th style="width:16%; text-align: right;">Total</th>
                         <th style="width:16%; text-align: right;">Cofinanciamiento</th>
                         <th style="width:12%; text-align: right;">Aporte fondo</th>
-                        <th>UE</th>
-                        <th>UN</th>
+                        <th style="text-align: right;">UE</th>
+                        <th style="text-align: right;">UN</th>
                         <th></th>
                     </tr>
                     <?php foreach ($lista_detalles as $item):
                         $total += $item->total;
                         $cofinanciacion += $item->cofinanciacion;
-                        $aporte_fondo += $item->aporte_fondo;
+                        $delta = $item->total - $item->cofinanciacion;
+                        $aporte_fondo += $delta;
                         $ue += $item->usuarios_existentes;
                         $un += $item->usuarios_nuevos;
                         ?>
@@ -82,13 +83,13 @@ $un = 0;
                                 <?= $item->descripcion_veredas ?>
                             </td>
                             <td style="text-align: right;">
-                                <?= $formatter->formatCurrency($item->total, 'COP') ?>
+                                <?= $formatter->formatCurrency($item->total*1000, 'COP') ?>
                             </td>
                             <td style="text-align: right;">
-                                <?= $formatter->formatCurrency($item->cofinanciacion, 'COP') ?>
+                                <?= $formatter->formatCurrency($item->cofinanciacion*1000, 'COP') ?>
                             </td>
                             <td style="text-align: right;">
-                                <?= $formatter->formatCurrency($item->aporte_fondo, 'COP') ?>
+                                <?= $formatter->formatCurrency($delta*1000, 'COP') ?>
                             </td>
                             <td style="text-align: right;">
                                 <?= $item->usuarios_existentes ?>
@@ -111,9 +112,9 @@ $un = 0;
                         <td><b>TOTAL</b></td>
                         <td></td>
                         <td></td>
-                        <td style="text-align: right;"><?= $formatter->formatCurrency($total, 'COP') ?></td>
-                        <td style="text-align: right;"><?= $formatter->formatCurrency($cofinanciacion, 'COP') ?></td>
-                        <td style="text-align: right;"><?= $formatter->formatCurrency($aporte_fondo, 'COP') ?></td>
+                        <td style="text-align: right;"><?= $formatter->formatCurrency($total*1000, 'COP') ?></td>
+                        <td style="text-align: right;"><?= $formatter->formatCurrency($cofinanciacion*1000, 'COP') ?></td>
+                        <td style="text-align: right;"><?= $formatter->formatCurrency($aporte_fondo*1000, 'COP') ?></td>
                         <td style="text-align: right;"><?= $ue ?></td>
                         <td style="text-align: right;"><?= $un ?></td>
                     </tr>
