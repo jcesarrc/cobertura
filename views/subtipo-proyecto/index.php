@@ -25,9 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'nombre',
-            'id_tipo',
+            [
+                'attribute'=>'id_tipo',
+                'value'=> function($data){
+                    return \app\models\TipoProyecto::findOne(['id'=>$data->id_tipo])->nombre;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

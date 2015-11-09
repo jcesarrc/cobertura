@@ -49,8 +49,11 @@ class FaerController extends Controller
      */
     public function actionView($id)
     {
+
+        $lista_detalle_proyecto = DetalleProyecto::findAll(['numero'=>$id]);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'lista_detalles' => $lista_detalle_proyecto,
         ]);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+use kartik\widgets\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +16,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'documento')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tipo_documento')->textInput() ?>
+    <?= $form->field($model, 'tipo_documento')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map([
+            ['id'=>1, 'nombre'=>'CC'],
+            ['id'=>2, 'nombre'=>'CE'],
+
+        ], 'id', 'nombre'),
+        'options' => ['placeholder' => 'Seleccione una opción'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'nombres')->textInput() ?>
 
@@ -30,7 +42,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'correo')->textInput() ?>
 
-    <?= $form->field($model, 'id_comite')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -54,12 +54,12 @@ class Participantes extends \yii\db\ActiveRecord
             'tipo_documento' => Yii::t('app', 'Tipo Documento'),
             'nombres' => Yii::t('app', 'Nombres'),
             'apellidos' => Yii::t('app', 'Apellidos'),
-            'nombre_entidad' => Yii::t('app', 'Nombre Entidad'),
-            'nit_entidad' => Yii::t('app', 'Nit Entidad'),
+            'nombre_entidad' => Yii::t('app', 'Entidad'),
+            'nit_entidad' => Yii::t('app', 'NIT'),
             'cargo' => Yii::t('app', 'Cargo'),
-            'telefono' => Yii::t('app', 'Telefono'),
+            'telefono' => Yii::t('app', 'Teléfono'),
             'correo' => Yii::t('app', 'Correo'),
-            'id_comite' => Yii::t('app', 'Id Comite'),
+            'id_comite' => Yii::t('app', 'Comite'),
         ];
     }
 

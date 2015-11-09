@@ -12,11 +12,13 @@ use kartik\grid\GridView;
 
 $this->title = Yii::t('app', 'Faers');
 $this->params['breadcrumbs'][] = $this->title;
+$global_acum_beneficiarios = 0;
+$global_acum = 0;
 ?>
 <div class="faer-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php $global_acum = 0; // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Faer'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -27,51 +29,60 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'responsive'=>true,
-        'resizableColumns'=>true,
+        'responsive' => true,
+        'resizableColumns' => true,
         'panel' => [
-                'before'=>'',
-            ],
+            'before' => '',
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'faer_no',
             [
                 'attribute' => 'nit_ejecuto',
-                'value' => function ($data){
+                'value' => function ($data) {
                     return $data->nitEjecuto->razon_social;
-                }
+                },
+                'filter' => \kartik\select2\Select2::widget([
+                    'name' => 'nit_ejecuto',
+                    'data' => ArrayHelper::map(\app\models\OperadorRed::find()->all(), 'nit', 'razon_social'),
+                    'options' => ['placeholder' => ''],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])
             ],
 
             //'fecha_radicacion:date',
             [
                 'attribute' => 'fecha_radicacion',
-                'value' => function ($data){
+                'value' => function ($data) {
                     return $data->fecha_radicacion;
                 },
                 'filter' =>
                     DateRangePicker::widget([
                         'model' => $searchModel,
                         'attribute' => 'fecha_radicacion',
-                        'convertFormat'=>true,
-                        'pluginOptions'=>[
-                            'timePicker'=>false,
-                            'format'=>'Y-m-d'
+                        'convertFormat' => true,
+                        'pluginOptions' => [
+                            'timePicker' => false,
+                            'format' => 'Y-m-d'
                         ]
-            ])],
+                    ])],
 
             'proyecto',
 
             [
                 'attribute' => 'Dpto',
                 'value' => function ($data) {
-                    if (count($data->detalleProyectos)>0)
-                        return app\models\Divipola::findOne(['id_dpto'=>$data->detalleProyectos[0]->id_departamento])->dpto;
+                    if (count($data->detalleProyectos) > 0)
+                        return app\models\Divipola::findOne(['id_dpto' => $data->detalleProyectos[0]->id_departamento])->dpto;
                     else return "";
                 },
                 'filter' => \kartik\select2\Select2::widget([
                     'name' => 'dpto',
                     'data' => ArrayHelper::map(\app\models\Divipola::find()->all(), 'id_dpto', 'dpto'),
+                    'options' => ['placeholder' => ''],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
@@ -81,47 +92,44 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'Total Beneficiarios',
-                'contentOptions'=> ['style' => 'text-align: right;'],
-                'value' => function ($data, $acum) use (&$global_acum) {
-                    if (count($data->detalleProyectos)>0) {
-                        foreach($data->detalleProyectos as $d) {
+                'contentOptions' => ['style' => 'text-align: right;'],
+                'value' => function ($data, $acum) use (&$global_acum_beneficiarios) {
+                    if (count($data->detalleProyectos) > 0) {
+                        foreach ($data->detalleProyectos as $d) {
                             $acum += $d->usuarios_nuevos;
                         }
-                        $global_acum+=$acum;
-                        return $global_acum;
-                    }
-                    else return $global_acum;
+                        $global_acum_beneficiarios += $acum;
+                        return $global_acum_beneficiarios;
+                    } else return $global_acum_beneficiarios;
                 },
             ],
 
             [
                 'attribute' => 'Total Proyecto',
                 'format' => 'Currency',
-                'contentOptions'=> ['style' => 'text-align: right;'],
+                'contentOptions' => ['style' => 'text-align: right;'],
                 'value' => function ($data, $acum) {
-                    if (count($data->detalleProyectos)>0) {
-                        foreach($data->detalleProyectos as $d) {
+                    if (count($data->detalleProyectos) > 0) {
+                        foreach ($data->detalleProyectos as $d) {
                             $acum += $d->total;
                         }
                         return $acum;
-                    }
-                    else return 0;
+                    } else return 0;
                 },
             ],
 
             [
                 'attribute' => 'Total Acumulado',
                 'format' => 'Currency',
-                'contentOptions'=> ['style' => 'text-align: right;'],
+                'contentOptions' => ['style' => 'text-align: right;'],
                 'value' => function ($data, $acum) use (&$global_acum) {
-                    if (count($data->detalleProyectos)>0) {
-                        foreach($data->detalleProyectos as $d) {
+                    if (count($data->detalleProyectos) > 0) {
+                        foreach ($data->detalleProyectos as $d) {
                             $acum += $d->total;
                         }
-                        $global_acum+=$acum;
+                        $global_acum += $acum;
                         return $global_acum;
-                    }
-                    else return $global_acum;
+                    } else return $global_acum;
                 },
             ],
 
@@ -134,8 +142,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             '{export}',
         ],
-
-
 
 
     ]); ?>

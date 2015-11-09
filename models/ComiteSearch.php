@@ -19,7 +19,7 @@ class ComiteSearch extends Comite
     {
         return [
             [['id', 'id_convocatoria'], 'integer'],
-            [['fecha_inicio', 'fehca_fin', 'descripcion', 'tipo', 'acta'], 'safe'],
+            [['fecha_inicio', 'fecha_fin', 'descripcion', 'tipo', 'acta'], 'safe'],
         ];
     }
 
@@ -61,7 +61,7 @@ class ComiteSearch extends Comite
         $query->andFilterWhere([
             'id' => $this->id,
             'fecha_inicio' => $this->fecha_inicio,
-            'fehca_fin' => $this->fehca_fin,
+            'fecha_fin' => $this->fecha_fin,
             'id_convocatoria' => $this->id_convocatoria,
         ]);
 

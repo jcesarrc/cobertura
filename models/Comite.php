@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $fecha_inicio
- * @property string $fehca_fin
+ * @property string $fecha_fin
  * @property string $descripcion
  * @property string $tipo
  * @property integer $id_convocatoria
@@ -35,9 +35,9 @@ class Comite extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'id_convocatoria'], 'integer'],
-            [['fecha_inicio', 'fehca_fin'], 'safe'],
+            [['id_convocatoria'], 'integer'],
+            [['fecha_inicio', 'fecha_fin'], 'safe'],
+            [['fecha_inicio', 'fecha_fin'],'initDateBeforeEndDate'],
             [['descripcion', 'tipo', 'acta'], 'string'],
             [['id_convocatoria'], 'exist', 'skipOnError' => true, 'targetClass' => Convocatoria::className(), 'targetAttribute' => ['id_convocatoria' => 'id']],
         ];
@@ -51,14 +51,21 @@ class Comite extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'fecha_inicio' => Yii::t('app', 'Fecha Inicio'),
-            'fehca_fin' => Yii::t('app', 'Fehca Fin'),
+            'fecha_fin' => Yii::t('app', 'Fecha Fin'),
             'descripcion' => Yii::t('app', 'Descripcion'),
             'tipo' => Yii::t('app', 'Tipo'),
-            'id_convocatoria' => Yii::t('app', 'Id Convocatoria'),
+            'id_convocatoria' => Yii::t('app', 'Convocatoria'),
             'acta' => Yii::t('app', 'Acta'),
         ];
     }
 
+    public function initDateBeforeEndDate($attribute, $params)
+    {
+        if($this->fecha_inicio>=$this->fecha_fin){
+            $this->addError($attribute, 'La fecha de inicio de la convocatoria no puede ser posterior a la fecha final');
+        }
+
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

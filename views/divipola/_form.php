@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'id_dpto')->textInput() ?>
+
+    <?= $form->field($model, 'dpto')->textInput() ?>
+
     <?= $form->field($model, 'id')->textInput() ?>
 
-    <?= $form->field($model, 'nombre')->textInput() ?>
-
-    <?= $form->field($model, 'tipo')->textInput() ?>
-
-    <?= $form->field($model, 'padre')->textInput() ?>
+    <?= $form->field($model, 'mpio')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

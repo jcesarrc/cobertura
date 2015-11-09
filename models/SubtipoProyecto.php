@@ -29,6 +29,7 @@ class SubtipoProyecto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['id_tipo'], 'required'],
             [['id_tipo'], 'integer'],
             [['nombre'], 'string', 'max' => 255],
             [['id_tipo'], 'exist', 'skipOnError' => true, 'targetClass' => TipoProyecto::className(), 'targetAttribute' => ['id_tipo' => 'id']],

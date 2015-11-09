@@ -33,8 +33,8 @@ class Convocatoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'integer'],
+            [['nombre', 'fecha_inicio', 'tipo'], 'required'],
+            [['fecha_inicio', 'fecha_fin'],'initDateBeforeEndDate'],
             [['nombre', 'descripcion', 'requisitos', 'fecha_fin', 'tipo'], 'string'],
             [['fecha_inicio'], 'safe'],
         ];
@@ -48,7 +48,7 @@ class Convocatoria extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'nombre' => Yii::t('app', 'Nombre'),
-            'descripcion' => Yii::t('app', 'Descripcion'),
+            'descripcion' => Yii::t('app', 'Descripción'),
             'requisitos' => Yii::t('app', 'Requisitos'),
             'fecha_inicio' => Yii::t('app', 'Fecha Inicio'),
             'fecha_fin' => Yii::t('app', 'Fecha Fin'),
@@ -56,6 +56,14 @@ class Convocatoria extends \yii\db\ActiveRecord
         ];
     }
 
+
+    public function initDateBeforeEndDate($attribute, $params)
+    {
+        if($this->fecha_inicio>=$this->fecha_fin){
+            $this->addError($attribute, 'La fecha de inicio de la convocatoria no puede ser posterior a la fecha final');
+        }
+
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

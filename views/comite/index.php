@@ -25,11 +25,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+
             'fecha_inicio',
-            'fehca_fin',
+            'fecha_fin',
             'descripcion',
             'tipo',
+            [
+                'format' => 'raw',
+                'value' => function($data){
+                    return Html::a(Html::encode('Registrar participantes'),['participantes/create', 'id_comite'=>$data->id]);
+                },
+            ],
+            [
+                'format' => 'raw',
+                'value' => function($data){
+                    return Html::a(Html::encode('Ver participantes'),['participantes/index', 'id_comite'=>$data->id]);
+                },
+            ],
             // 'id_convocatoria',
             // 'acta',
 

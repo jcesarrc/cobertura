@@ -46,8 +46,8 @@ class Divipola extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'id_mpio'),
-            'id_dpto' => Yii::t('app', 'id_dpto'),
+            'id' => Yii::t('app', 'Cod Mpio'),
+            'id_dpto' => Yii::t('app', 'Cod Dpto'),
             'dpto' => Yii::t('app', 'Departamento'),
             'mpio' => Yii::t('app', 'Municipio'),
         ];

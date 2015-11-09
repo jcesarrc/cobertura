@@ -59,12 +59,12 @@ class ParticipantesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_comite)
     {
         $model = new Participantes();
-
+        $model->id_comite = $id_comite;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'documento' => $model->documento, 'id_comite' => $model->id_comite]);
+            return $this->redirect(['index', 'documento' => $model->documento, 'id_comite' => $model->id_comite]);
         } else {
             return $this->render('create', [
                 'model' => $model,

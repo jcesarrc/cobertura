@@ -1,5 +1,8 @@
 <?php
 
+use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,17 +15,25 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
+    <?= $form->field($model, 'fecha_inicio')->widget(DateControl::classname(), [
+        'type' => DateControl::FORMAT_DATE,
+    ]) ?>
 
-    <?= $form->field($model, 'fecha_inicio')->textInput() ?>
-
-    <?= $form->field($model, 'fehca_fin')->textInput() ?>
+    <?= $form->field($model, 'fecha_fin')->widget(DateControl::classname(), [
+        'type' => DateControl::FORMAT_DATE,
+    ]) ?>
 
     <?= $form->field($model, 'descripcion')->textInput() ?>
 
     <?= $form->field($model, 'tipo')->textInput() ?>
 
-    <?= $form->field($model, 'id_convocatoria')->textInput() ?>
+    <?= $form->field($model, 'id_convocatoria')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(\app\models\Convocatoria::find()->all(), 'id', 'nombre'),
+        'options' => ['placeholder' => 'Seleccione una opción'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'acta')->textInput() ?>
 

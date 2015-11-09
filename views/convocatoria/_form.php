@@ -1,5 +1,8 @@
 <?php
 
+use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,7 +15,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
 
     <?= $form->field($model, 'nombre')->textInput() ?>
 
@@ -20,11 +22,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'requisitos')->textInput() ?>
 
-    <?= $form->field($model, 'fecha_inicio')->textInput() ?>
+    <?= $form->field($model, 'fecha_inicio')->widget(DateControl::classname(), [
+        'type' => DateControl::FORMAT_DATE,
+    ]) ?>
 
-    <?= $form->field($model, 'fecha_fin')->textInput() ?>
+    <?= $form->field($model, 'fecha_fin')->widget(DateControl::classname(), [
+        'type' => DateControl::FORMAT_DATE,
+    ]) ?>
 
-    <?= $form->field($model, 'tipo')->textInput() ?>
+    <?= $form->field($model, 'tipo')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(\app\models\SubtipoProyecto::find()->all(), 'id', 'nombre'),
+        'options' => ['placeholder' => 'Seleccione una opción'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
