@@ -25,11 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            [
+                'attribute'=>'id_convocatoria',
+                'value'=>function($data){
+                    return app\models\TipoProyecto::findOne(['id'=>$data->id_convocatoria])->nombre;
+                }
+            ],
 
+            'acta',
             'fecha_inicio',
             'fecha_fin',
-            'descripcion',
-            'tipo',
             [
                 'format' => 'raw',
                 'value' => function($data){
@@ -42,8 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a(Html::encode('Ver participantes'),['participantes/index', 'id_comite'=>$data->id]);
                 },
             ],
-            // 'id_convocatoria',
-            // 'acta',
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

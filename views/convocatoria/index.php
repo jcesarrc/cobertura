@@ -24,14 +24,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
 
-            'id',
             'nombre',
             'descripcion',
-            'requisitos',
+//            'requisitos',
             'fecha_inicio',
-            // 'fecha_fin',
-            // 'tipo',
-
+            'fecha_fin',
+            [
+                'attribute'=>'tipo',
+                'value'=> function($data){
+                    return \app\models\SubtipoProyecto::findOne(['id'=>$data['tipo']])['nombre'];
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

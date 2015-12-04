@@ -52,17 +52,17 @@ class OperadorRed extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_sui' => Yii::t('app', 'Id Sui'),
-            'nit' => Yii::t('app', 'Nit'),
-            'razon_social' => Yii::t('app', 'Razon Social'),
+            'id_sui' => Yii::t('app', 'ID SUI'),
+            'nit' => Yii::t('app', 'NIT'),
+            'razon_social' => Yii::t('app', 'Razón Social'),
             'represetante_legal' => Yii::t('app', 'Representante Legal'),
             'revisor_fiscal' => Yii::t('app', 'Revisor Fiscal'),
             'contador' => Yii::t('app', 'Contador'),
-            'direccion' => Yii::t('app', 'Direccion'),
-            'telefono' => Yii::t('app', 'Telefono'),
+            'direccion' => Yii::t('app', 'Dirección'),
+            'telefono' => Yii::t('app', 'Télefono'),
             'celular' => Yii::t('app', 'Celular'),
             'correo' => Yii::t('app', 'Correo'),
-            'direccion_web' => Yii::t('app', 'Direccion Web'),
+            'direccion_web' => Yii::t('app', 'Dirección Web'),
         ];
     }
 
