@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use app\components\AccessRule;
+use app\models\Rol;
 use Yii;
 use app\models\Divipola;
 use app\models\DivipolaSearch;
+use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -24,6 +27,25 @@ class DivipolaController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                // We will override the default rule config with the new AccessRule class
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['index','create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index','create', 'update', 'delete'],
+                        'allow' => true,
+                        // Allow users:
+                        'roles' => [
+                            Rol::ROLE_SUPER,
+                            Rol::ROLE_ADMIN,
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -41,6 +63,14 @@ class DivipolaController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionChoose()
+    {
+        return $this->render('choose', [
+            'model' => null,
+        ]);
+    }
+
 
     /**
      * Displays a single Divipola model.
@@ -121,6 +151,17 @@ class DivipolaController extends Controller
     }
 
 
+
+    public function actionLatlon($id){
+        $lat = 0;
+        $lon = 0;
+        if(Divipola::findOne(['id'=>$id])!=null){
+            $lat = Divipola::findOne(['id'=>$id])->lat;
+            $lon = Divipola::findOne(['id'=>$id])->lon;
+        }
+        echo Json::encode(['lat'=>$lat, 'lon'=>$lon]);
+    }
+
     public function actionCiudades()
     {
         //'options' => ArrayHelper::map(PartesModelo::findAll(['TipoTramite_id'=>$model->TipoTramite_id]), 'vista', 'nombre'),
@@ -149,6 +190,69 @@ class DivipolaController extends Controller
             }
         }
         echo Json::encode(['output'=>'', 'selected'=>'']);
+
+    }
+
+
+    public function actionFileUpload(){
+
+        if (empty($_FILES['attachment'])) {
+            echo json_encode(['error' => 'No seleccionó ningun archivo']);
+            return;
+        }
+
+        // a flag to see if everything is ok
+        $success = null;
+
+        $file = $_FILES['attachment'];
+
+        $target = '/var/www/html/cobertura/web/files/';
+
+        $filename = $file['name'];
+
+        if(file_exists($target.$filename)) unlink($target.$filename);
+
+        $success = move_uploaded_file($_FILES['attachment']['tmp_name'], $target.$filename) ? true : false;
+
+        // check and process based on successful status
+        if ($success === true) {
+            $row = 1;
+            if (($handle = fopen($target.$filename, "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
+
+                    $c=0;
+
+                    $num_dpto = $data[$c++];
+                    $nombre_dpto = $data[$c++];
+                    $num_mpio = $data[$c++];
+                    $nombre_mpio = $data[$c++];
+
+                    if(!(Divipola::find()->where(['id_dpto'=>$num_dpto, 'id'=>$num_dpto])->exists())){
+                        $model = new Divipola();
+                        $model->id = $num_mpio;
+                        $model->id_dpto = $num_dpto;
+                        $model->dpto = $nombre_dpto;
+                        $model->mpio = $nombre_mpio;
+                        $model->save();
+                    } else {
+                        $row++;
+                    }
+                }
+                fclose($handle);
+            }
+            //$this->redirect(['index']);
+            $output = ['success'=>'Carga exitosa'];
+
+        } elseif ($success === false) {
+            $output = ['error' => 'Error subiendo archivo'];
+            // delete any uploaded files
+            //unlink($file);
+        } else {
+            $output = ['error' => 'No se procesó el archivo'];
+        }
+
+        // return a json encoded response for plugin to process successfully
+        echo json_encode($output);
 
     }
 }

@@ -27,6 +27,65 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+
+    $items = [];
+
+    if(Yii::$app->user->isGuest){
+        $items[] = ['label' => 'Ingresar', 'url' => ['/site/login']];
+    }else {
+        $items[] = ['label' => 'Inicio', 'url' => ['/site/index']];
+        if (Yii::$app->user->identity->username == "admin") {
+            $items[] =
+                [
+                    'label' => 'Configuración',
+                    'items' => [
+                        ['label' => 'Comités', 'url' => ['/comite/index']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Convocatorias', 'url' => ['/convocatoria/index']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Operadores de Red', 'url' => ['/operador-red/index']],
+                        '<li class="divider"></li>',
+                        ['label' => 'División Politica Administrativa', 'url' => ['/divipola/index']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Categorías', 'url' => ['/categoria/index']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Subcategorias', 'url' => ['/subcategoria/index']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Usuarios', 'url' => ['/user/index']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Metas de cobertura', 'url' => ['/metas-cobertura/index']],
+                    ],
+                ];
+        }
+
+        $items[] = [
+                    'label' => 'Proyectos',
+                    'items' => [
+                        ['label' => 'Registrar proyectos', 'url' => ['/faer/index']],
+                    ],
+                ];
+
+        $items[]=   [
+                    'label' => 'Reportes',
+                    'items' => [
+                        ['label' => 'Búsqueda / Reporte', 'url' => ['/faer/index']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Búsqueda proyectos por comité', 'url' => ['/faer/index3']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Reporte beneficiarios y fondos', 'url' => ['/reportes/beneficiados-por-departamento']],
+                        '<li class="divider"></li>',
+                        ['label' => 'Reporte metas', 'url' => ['/reportes/canvas-metas']],
+                    ],
+                ];
+
+        $items[]=   [
+                    'label' => 'Salir (' . Yii::$app->user->identity->username . ')',
+                    'url' => ['/site/logout'],
+                    'linkOptions' => ['data-method' => 'post']
+                ];
+    }
+
+
     NavBar::begin([
         'brandLabel' => 'Sistema de Cobertura',
         'brandUrl' => Yii::$app->homeUrl,
@@ -34,48 +93,10 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Inicio', 'url' => ['/site/index']],
-            [
-                'label' => 'Configuración',
-                'items' => [
-                    ['label' => 'Operadores de Red', 'url' => ['/operador-red/index']],
-                    '<li class="divider"></li>',
-                    ['label' => 'División Politica Administrativa', 'url' => ['/divipola/index']],
-                    '<li class="divider"></li>',
-                    ['label' => 'Comités', 'url' => ['/comite/index']],
-                    '<li class="divider"></li>',
-                    ['label' => 'Convocatorias', 'url' => ['/convocatoria/index']],
-                    '<li class="divider"></li>',
-                    ['label' => 'Participantes', 'url' => ['/participantes/index']],
-                    '<li class="divider"></li>',
-                    ['label' => 'Tipos de proyecto', 'url' => ['/tipo-proyecto/index']],
-                    '<li class="divider"></li>',
-                    ['label' => 'Subtipo de proyecto', 'url' => ['/subtipo-proyecto/index']],
-                ],
-            ],
-            [
-                'label' => 'Proyectos',
-                'items' => [
-                    ['label' => 'Proyectos FAER', 'url' => ['/faer/index']],
-                    '<li class="divider"></li>',
-                    ['label' => 'Proyectos FAZNI', 'url' => ['/faer/index']],
-                    '<li class="divider"></li>',
-
-                ],
-            ],
-
-
-            Yii::$app->user->isGuest ?
-                ['label' => 'Ingresar', 'url' => ['/site/login']] :
-                [
-                    'label' => 'Salir (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ],
-        ],
+        'items' => $items,
     ]);
     NavBar::end();
     ?>

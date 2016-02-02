@@ -98,8 +98,9 @@ $un = 0;
                                 <?= $item->usuarios_nuevos ?>
                             </td>
                             <th>
-                                <?= Html::a(' - ', ['delete', 'id' => $item->id, 'numero'=>$item->numero], [
+                                <?= Html::a('Borrar', ['delete', 'id' => $item->id, 'numero'=>$item->numero], [
                                     'class' => 'btn btn-xs btn-danger',
+                                    'style' => 'border-radius: 5px',
                                     'data' => [
                                         'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                                         'method' => 'post',
@@ -154,20 +155,22 @@ $un = 0;
                         ]
                     ]) ?>
                 </div>
-                <div class="col-md-4">
-                    <?= $form->field($model, 'descripcion_veredas')->textarea(['maxlength' => true]) ?>
-                </div>
-                <div class="col-md-1">
+                <div class="col-md-3">
                     <?= $form->field($model, 'latitud')->textInput() ?>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-3">
                     <?= $form->field($model, 'longitud')->textInput() ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?= $form->field($model, 'descripcion_veredas')->textarea(['maxlength' => true]) ?>
                 </div>
             </div>
 
             <div class="row">
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <?= $form->field($model, 'total')->widget(MaskMoney::classname(), [
                         'pluginOptions' => [
                             'prefix' => '$ ',
@@ -181,7 +184,7 @@ $un = 0;
                     ]) ?>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <?= $form->field($model, 'cofinanciacion')->widget(MaskMoney::classname(), [
                         'pluginOptions' => [
                             'prefix' => '$ ',

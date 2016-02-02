@@ -16,9 +16,14 @@ use Yii;
  * @property string $nit_ejecuto
  * @property string $fecha_radicacion
  * @property string $fecha_aprobacion
- * @property integer $tipo_proyecto
+ * @property integer $subcategoria
+ * @property integer $convocatoria
+ * @property integer $categoria
  *
  * @property DetalleProyecto[] $detalleProyectos
+ * @property Categoria $categoria0
+ * @property Convocatoria $convocatoria0
+ * @property Subcategoria $subcategoria0
  * @property OperadorRed $nitPresento
  * @property OperadorRed $nitEjecuto
  */
@@ -29,7 +34,7 @@ class Faer extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'cobertura.faer';
+        return 'faer';
     }
 
     /**
@@ -38,7 +43,8 @@ class Faer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['radicado', 'tipo_proyecto'], 'integer'],
+            [['subcategoria', 'convocatoria', 'categoria', 'proyecto', 'faer_no', 'nit_presento', 'nit_ejecuto', 'fecha_radicacion', 'fecha_aprobacion'], 'required'],
+            [['radicado','subcategoria', 'convocatoria', 'categoria'], 'integer'],
             [['oep'], 'number'],
             [['fecha_radicacion', 'fecha_aprobacion'], 'safe'],
             [['nit_presento', 'nit_ejecuto'], 'string', 'max' => 20],
@@ -47,6 +53,9 @@ class Faer extends \yii\db\ActiveRecord
             [['faer_no'], 'unique'],
             [['nit_presento'], 'exist', 'skipOnError' => true, 'targetClass' => OperadorRed::className(), 'targetAttribute' => ['nit_presento' => 'nit']],
             [['nit_ejecuto'], 'exist', 'skipOnError' => true, 'targetClass' => OperadorRed::className(), 'targetAttribute' => ['nit_ejecuto' => 'nit']],
+            [['categoria'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => ['categoria' => 'id']],
+            [['convocatoria'], 'exist', 'skipOnError' => true, 'targetClass' => Convocatoria::className(), 'targetAttribute' => ['convocatoria' => 'id']],
+            [['subcategoria'], 'exist', 'skipOnError' => true, 'targetClass' => Subcategoria::className(), 'targetAttribute' => ['subcategoria' => 'id']],
         ];
     }
 
@@ -60,12 +69,14 @@ class Faer extends \yii\db\ActiveRecord
             'nit_presento' => Yii::t('app', 'Nit Presento'),
             'radicado' => Yii::t('app', 'Radicado'),
             'oep' => Yii::t('app', 'Oep'),
-            'faer_no' => Yii::t('app', 'Faer No'),
+            'faer_no' => Yii::t('app', 'No de Proyecto'),
             'proyecto' => Yii::t('app', 'Proyecto'),
             'nit_ejecuto' => Yii::t('app', 'Nit Ejecuto'),
             'fecha_radicacion' => Yii::t('app', 'Fecha Radicacion'),
             'fecha_aprobacion' => Yii::t('app', 'Fecha Aprobacion'),
-            'tipo_proyecto' => Yii::t('app', 'Tipo Proyecto'),
+            'subcategoria' => Yii::t('app', 'Subcategoria'),
+            'convocatoria' => Yii::t('app', 'Convocatoria'),
+            'categoria' => Yii::t('app', 'Categoria'),
         ];
     }
 
@@ -75,6 +86,27 @@ class Faer extends \yii\db\ActiveRecord
     public function getDetalleProyectos()
     {
         return $this->hasMany(DetalleProyecto::className(), ['numero' => 'numero']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoria0()
+    {
+        return $this->hasOne(Categoria::className(), ['id' => 'categoria']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConvocatoria0()
+    {
+        return $this->hasOne(Convocatoria::className(), ['id' => 'convocatoria']);
+    }
+
+    public function getSubcategoria0()
+    {
+        return $this->hasOne(Subcategoria::className(), ['id' => 'subcategoria']);
     }
 
     /**
@@ -100,5 +132,12 @@ class Faer extends \yii\db\ActiveRecord
     public static function find()
     {
         return new FaerQuery(get_called_class());
+    }
+
+
+    public function consultarProyectosSinAprobar($id_comite){
+
+
+
     }
 }

@@ -18,8 +18,8 @@ class ComiteSearch extends Comite
     public function rules()
     {
         return [
-            [['id', 'id_convocatoria'], 'integer'],
-            [['fecha_inicio', 'fecha_fin', 'descripcion', 'tipo', 'acta'], 'safe'],
+            [['id', 'tipo', 'subtipo', 'convocatoria'], 'integer'],
+            [['descripcion', 'nombre', 'fecha_inicio', 'fecha_fin', 'observaciones'], 'safe'],
         ];
     }
 
@@ -60,14 +60,16 @@ class ComiteSearch extends Comite
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'tipo' => $this->tipo,
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin' => $this->fecha_fin,
-            'id_convocatoria' => $this->id_convocatoria,
+            'subtipo' => $this->subtipo,
+            'convocatoria' => $this->convocatoria,
         ]);
 
         $query->andFilterWhere(['like', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['like', 'tipo', $this->tipo])
-            ->andFilterWhere(['like', 'acta', $this->acta]);
+            ->andFilterWhere(['like', 'nombre', $this->nombre])
+            ->andFilterWhere(['like', 'observaciones', $this->observaciones]);
 
         return $dataProvider;
     }

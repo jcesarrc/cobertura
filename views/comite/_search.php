@@ -17,17 +17,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'fecha_inicio') ?>
-
-    <?= $form->field($model, 'fehca_fin') ?>
-
     <?= $form->field($model, 'descripcion') ?>
 
     <?= $form->field($model, 'tipo') ?>
 
-    <?php // echo $form->field($model, 'id_convocatoria') ?>
+    <?= $form->field($model, 'nombre') ?>
 
-    <?php // echo $form->field($model, 'acta') ?>
+    <?= $form->field($model, 'fecha_inicio') ?>
+
+    <?php // echo $form->field($model, 'fecha_fin') ?>
+
+    <?php // echo $form->field($model, 'observaciones') ?>
+
+    <?php // echo $form->field($model, 'subtipo') ?>
+
+    <?php // echo $form->field($model, 'convocatoria') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

@@ -1,6 +1,9 @@
 <?php
 
+use app\models\Categoria;
+use kartik\widgets\DepDrop;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\Select2;
@@ -15,6 +18,47 @@ use kartik\money\MaskMoney;
 <div class="faer-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+    <div class="row">
+        <div class="col-lg-4">
+            <?= $form->field($model, 'categoria')->widget(Select2::classname(), [
+                'data' => ArrayHelper::map(Categoria::find()->all(), 'id', 'nombre'),
+                'options' => ['placeholder' => 'Seleccione una opción'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]) ?>
+        </div>
+        <div class="col-lg-4">
+            <?= $form->field($model, 'subcategoria')->widget(DepDrop::classname(), [
+                'type' => DepDrop::TYPE_SELECT2,
+                'pluginOptions'=>[
+                    'depends' => ['faer-categoria'],
+                    'loadingText' => 'Cargando...',
+                    'placeholder' => 'Seleccione una opción',
+                    'url' => Url::to(['faer/subcategorias'])
+                ]
+            ]) ?>
+        </div>
+        <div class="col-lg-4">
+            <?= $form->field($model, 'convocatoria')->widget(DepDrop::classname(), [
+                'type' => DepDrop::TYPE_SELECT2,
+                'pluginOptions'=>[
+                    'depends' => ['faer-categoria', 'faer-subcategoria'],
+                    'loadingText' => 'Cargando...',
+                    'placeholder' => 'Seleccione una opción',
+                    'url' => Url::to(['faer/convocatorias'])
+                ]
+            ]) ?>
+        </div>
+    </div>
+
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="col-lg-4">

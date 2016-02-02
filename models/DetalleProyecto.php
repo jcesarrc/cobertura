@@ -29,7 +29,7 @@ class DetalleProyecto extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'cobertura.detalle_proyecto';
+        return 'detalle_proyecto';
     }
 
     /**
@@ -38,7 +38,7 @@ class DetalleProyecto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_departamento', 'id_municipio'], 'required'],
+            [['id_departamento', 'id_municipio', 'latitud', 'longitud', 'total'], 'required'],
             [['id_departamento', 'id_municipio', 'usuarios_nuevos', 'usuarios_existentes', 'numero'], 'integer'],
             [['latitud', 'longitud', 'total', 'aporte_fondo', 'cofinanciacion'], 'number'],
             [['descripcion_veredas'], 'string', 'max' => 9999],

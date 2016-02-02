@@ -25,7 +25,7 @@ class Divipola extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'cobertura.divipola';
+        return 'divipola';
     }
 
     /**
@@ -37,6 +37,7 @@ class Divipola extends \yii\db\ActiveRecord
             [['id','id_dpto'], 'required'],
             [['id','id_dpto'], 'integer'],
             [['dpto', 'mpio'], 'string'],
+            [['lat', 'lon'], 'double'],
         ];
     }
 
@@ -50,6 +51,8 @@ class Divipola extends \yii\db\ActiveRecord
             'id_dpto' => Yii::t('app', 'Cod Dpto'),
             'dpto' => Yii::t('app', 'Departamento'),
             'mpio' => Yii::t('app', 'Municipio'),
+            'lat' => Yii::t('app', 'Latitud'),
+            'lon' => Yii::t('app', 'Longitud'),
         ];
     }
 

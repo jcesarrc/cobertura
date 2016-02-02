@@ -8,14 +8,19 @@ use Yii;
  * This is the model class for table "comite".
  *
  * @property integer $id
+ * @property string $descripcion
+ * @property integer $tipo
+ * @property string $nombre
  * @property string $fecha_inicio
  * @property string $fecha_fin
- * @property string $descripcion
- * @property string $tipo
- * @property integer $id_convocatoria
- * @property string $acta
+ * @property string $observaciones
+ * @property integer $subtipo
+ * @property integer $convocatoria
  *
- * @property Convocatoria $idConvocatoria
+ * @property Categoria $tipo0
+ * @property Convocatoria $convocatoria0
+ * @property Subcategoria $subtipo0
+ * @property Faer[] $faers
  * @property Participantes[] $participantes
  * @property Proyectoxcomite[] $proyectoxcomites
  */
@@ -26,7 +31,7 @@ class Comite extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'cobertura.comite';
+        return 'comite';
     }
 
     /**
@@ -35,11 +40,14 @@ class Comite extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_convocatoria'], 'integer'],
+            [['descripcion', 'observaciones'], 'string'],
+            [['tipo', 'subtipo'], 'required'],
+            [['tipo', 'subtipo', 'convocatoria'], 'integer'],
             [['fecha_inicio', 'fecha_fin'], 'safe'],
-            [['fecha_inicio', 'fecha_fin'],'initDateBeforeEndDate'],
-            [['descripcion', 'tipo', 'acta'], 'string'],
-            [['id_convocatoria'], 'exist', 'skipOnError' => true, 'targetClass' => Convocatoria::className(), 'targetAttribute' => ['id_convocatoria' => 'id']],
+            [['nombre'], 'string', 'max' => 255],
+            [['tipo'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => ['tipo' => 'id']],
+            [['convocatoria'], 'exist', 'skipOnError' => true, 'targetClass' => Convocatoria::className(), 'targetAttribute' => ['convocatoria' => 'id']],
+            [['subtipo'], 'exist', 'skipOnError' => true, 'targetClass' => Subcategoria::className(), 'targetAttribute' => ['subtipo' => 'id']],
         ];
     }
 
@@ -50,28 +58,47 @@ class Comite extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'fecha_inicio' => Yii::t('app', 'Fecha Inicio'),
-            'fecha_fin' => Yii::t('app', 'Fecha Fin'),
             'descripcion' => Yii::t('app', 'Descripcion'),
             'tipo' => Yii::t('app', 'Tipo'),
-            'id_convocatoria' => Yii::t('app', 'Convocatoria'),
-            'acta' => Yii::t('app', 'Acta'),
+            'nombre' => Yii::t('app', 'Nombre'),
+            'fecha_inicio' => Yii::t('app', 'Fecha Inicio'),
+            'fecha_fin' => Yii::t('app', 'Fecha Fin'),
+            'observaciones' => Yii::t('app', 'Observaciones'),
+            'subtipo' => Yii::t('app', 'Subtipo'),
+            'convocatoria' => Yii::t('app', 'Convocatoria'),
         ];
     }
 
-    public function initDateBeforeEndDate($attribute, $params)
-    {
-        if($this->fecha_inicio>=$this->fecha_fin){
-            $this->addError($attribute, 'La fecha de inicio de la convocatoria no puede ser posterior a la fecha final');
-        }
-
-    }
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdConvocatoria()
+    public function getTipo0()
     {
-        return $this->hasOne(Convocatoria::className(), ['id' => 'id_convocatoria']);
+        return $this->hasOne(Categoria::className(), ['id' => 'tipo']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConvocatoria0()
+    {
+        return $this->hasOne(Convocatoria::className(), ['id' => 'convocatoria']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSubtipo0()
+    {
+        return $this->hasOne(Subcategoria::className(), ['id' => 'subtipo']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFaers()
+    {
+        return $this->hasMany(Faer::className(), ['comite' => 'id']);
     }
 
     /**

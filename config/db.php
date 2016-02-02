@@ -2,14 +2,14 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'pgsql:host=80.240.141.203;port=8081;dbname=cobertura',
+    'dsn' => 'pgsql:host=127.0.0.1;port=5432;dbname=cobertura',
     'username' => 'postgres',
-    'password' => '0DHCBH3B',
+    'password' => 'postgres',
     'charset' => 'utf8',
-    'schemaMap' => [
+    /*'schemaMap' => [
         'pgsql' => [
             'class' => 'yii\db\pgsql\Schema',
-            'defaultSchema' => 'cobertura'
+            'defaultSchema' => 'public'
         ]
-    ],
+    ],*/
 ];

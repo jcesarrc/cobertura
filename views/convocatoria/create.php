@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Convocatoria */
 
-$this->title = Yii::t('app', 'Registrar Convocatoria');
+$this->title = Yii::t('app', 'Create Convocatoria');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Convocatorias'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

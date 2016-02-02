@@ -18,11 +18,11 @@ $global_acum = 0;
 <div class="faer-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Faer'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Subir archivo proyecto(s) FAER'), ['choose'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Subir archivo proyecto(s)'), ['choose'], ['class' => 'btn btn-primary']) ?>
 
     </p>
 

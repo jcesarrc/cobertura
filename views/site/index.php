@@ -2,7 +2,13 @@
 
 /* @var $this yii\web\View */
 
+use yii\helpers\Url;
+
 $this->title = 'Sistema de cobertura';
+
+if(!Yii::$app->user->isGuest)
+    Yii::$app->response->redirect(Url::to(['faer/index']));
+else Yii::$app->response->redirect(Url::to(['site/login']));
 
 ?>
 <!--

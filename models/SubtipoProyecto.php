@@ -20,7 +20,7 @@ class SubtipoProyecto extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'cobertura.subtipo_proyecto';
+        return 'subtipo_proyecto';
     }
 
     /**

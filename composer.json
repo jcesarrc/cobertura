@@ -19,7 +19,6 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "raoul2000/yii2-bootswatch-asset": "*",
-        "dektrium/yii2-user": "0.9.*@dev",
         "kartik-v/yii2-datecontrol": "dev-master",
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-widget-datepicker": "dev-master",
@@ -32,7 +31,10 @@
         "kartik-v/yii2-widget-fileinput": "@dev",
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-mpdf": "@dev",
-        "kartik-v/yii2-date-range": "*"
+        "kartik-v/yii2-date-range": "*",
+        "miloschuman/yii2-highcharts-widget": "*",
+        "kartik-v/yii2-krajee-base": "^1.8",
+        "kartik-v/yii2-checkbox-x": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

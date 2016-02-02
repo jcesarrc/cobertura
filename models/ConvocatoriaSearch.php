@@ -18,8 +18,9 @@ class ConvocatoriaSearch extends Convocatoria
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['nombre', 'descripcion', 'requisitos', 'fecha_inicio', 'fecha_fin', 'tipo'], 'safe'],
+            [['id', 'tipo'], 'integer'],
+            [['nombre', 'descripcion', 'fecha_inicio', 'fecha_fin'], 'safe'],
+            [['activa'], 'boolean'],
         ];
     }
 
@@ -61,13 +62,13 @@ class ConvocatoriaSearch extends Convocatoria
         $query->andFilterWhere([
             'id' => $this->id,
             'fecha_inicio' => $this->fecha_inicio,
+            'fecha_fin' => $this->fecha_fin,
+            'tipo' => $this->tipo,
+            'activa' => $this->activa,
         ]);
 
         $query->andFilterWhere(['like', 'nombre', $this->nombre])
-            ->andFilterWhere(['like', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['like', 'requisitos', $this->requisitos])
-            ->andFilterWhere(['like', 'fecha_fin', $this->fecha_fin])
-            ->andFilterWhere(['like', 'tipo', $this->tipo]);
+            ->andFilterWhere(['like', 'descripcion', $this->descripcion]);
 
         return $dataProvider;
     }

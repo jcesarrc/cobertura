@@ -15,12 +15,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nombre')->textInput() ?>
-
-    <?= $form->field($model, 'descripcion')->textInput() ?>
-
-    <?= $form->field($model, 'requisitos')->textInput() ?>
+    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'fecha_inicio')->widget(DateControl::classname(), [
         'type' => DateControl::FORMAT_DATE,
@@ -31,12 +28,14 @@ use yii\widgets\ActiveForm;
     ]) ?>
 
     <?= $form->field($model, 'tipo')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\app\models\SubtipoProyecto::find()->all(), 'id', 'nombre'),
+        'data' => ArrayHelper::map([['id'=>2, 'nombre'=>'FAER'],['id'=>3, 'nombre'=>'FAZNI']], 'id', 'nombre'),
         'options' => ['placeholder' => 'Seleccione una opción'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]) ?>
+    ])  ?>
+
+    <?= $form->field($model, 'activa')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

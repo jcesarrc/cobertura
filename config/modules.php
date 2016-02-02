@@ -10,8 +10,7 @@ return [
     ],
     'rbac' => [
         'class' => 'dektrium\rbac\Module',
-    ],
-*/
+    ],*/
     'datecontrol' =>  [
         'class' => 'kartik\datecontrol\Module',
 

@@ -10,12 +10,13 @@ use Yii;
  * @property integer $id
  * @property string $nombre
  * @property string $descripcion
- * @property string $requisitos
  * @property string $fecha_inicio
  * @property string $fecha_fin
- * @property string $tipo
+ * @property integer $tipo
+ * @property boolean $activa
  *
- * @property Comite[] $comites
+ * @property Categoria $tipo0
+ * @property Faer[] $faers
  */
 class Convocatoria extends \yii\db\ActiveRecord
 {
@@ -24,7 +25,7 @@ class Convocatoria extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'cobertura.convocatoria';
+        return 'convocatoria';
     }
 
     /**
@@ -33,10 +34,12 @@ class Convocatoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'fecha_inicio', 'tipo'], 'required'],
-            [['fecha_inicio', 'fecha_fin'],'initDateBeforeEndDate'],
-            [['nombre', 'descripcion', 'requisitos', 'fecha_fin', 'tipo'], 'string'],
-            [['fecha_inicio'], 'safe'],
+            [['nombre', 'fecha_inicio', 'fecha_fin'], 'required'],
+            [['fecha_inicio', 'fecha_fin'], 'safe'],
+            [['tipo'], 'integer'],
+            [['activa'], 'boolean'],
+            [['nombre', 'descripcion'], 'string', 'max' => 255],
+            [['tipo'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => ['tipo' => 'id']],
         ];
     }
 
@@ -48,28 +51,28 @@ class Convocatoria extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'nombre' => Yii::t('app', 'Nombre'),
-            'descripcion' => Yii::t('app', 'Descripción'),
-            'requisitos' => Yii::t('app', 'Requisitos'),
+            'descripcion' => Yii::t('app', 'Descripcion'),
             'fecha_inicio' => Yii::t('app', 'Fecha Inicio'),
             'fecha_fin' => Yii::t('app', 'Fecha Fin'),
             'tipo' => Yii::t('app', 'Tipo'),
+            'activa' => Yii::t('app', 'Activa'),
         ];
     }
 
-
-    public function initDateBeforeEndDate($attribute, $params)
-    {
-        if($this->fecha_inicio>=$this->fecha_fin){
-            $this->addError($attribute, 'La fecha de inicio de la convocatoria no puede ser posterior a la fecha final');
-        }
-
-    }
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getComites()
+    public function getTipo0()
     {
-        return $this->hasMany(Comite::className(), ['id_convocatoria' => 'id']);
+        return $this->hasOne(Categoria::className(), ['id' => 'tipo']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFaers()
+    {
+        return $this->hasMany(Faer::className(), ['convocatoria' => 'id']);
     }
 
     /**

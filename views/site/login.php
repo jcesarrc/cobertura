@@ -7,16 +7,26 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Ingreso al sistema';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Sistema de Información de Cobertura';
+//$this->params['breadcrumbs'][] = $this->title;
+
 $model->rememberMe = false;
 ?>
 
-<div class="site-login">
+
+<div class="col-lg-12 col-lg-offset-3">
+    <br>
+    <br>
+    <img src="https://www.minminas.gov.co/documents/10180/509131/logo-ppal.png/82328535-2c6d-45d7-8c24-0ba98877a42d?t=1414611012220">
+    <br>
+    <br>
+    <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Por favor llene los siguientes datos para ingresar:</p>
+<br>
+<br>
 
+    <div class="col-lg-offset-1">
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
         'options' => ['class' => 'form-horizontal'],
@@ -41,6 +51,13 @@ $model->rememberMe = false;
         </div>
 
     <?php ActiveForm::end(); ?>
+    </div>
+
+</div>
+
+    </div>
+
+<div style="background: #C0AF00; min-height: 10px; margin-top: 580px;">
 
 
 </div>

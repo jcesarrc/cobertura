@@ -17,7 +17,7 @@ class TipoProyecto extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'cobertura.tipo_proyecto';
+        return 'tipo_proyecto';
     }
 
     /**

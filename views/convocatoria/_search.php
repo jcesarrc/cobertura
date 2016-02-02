@@ -21,13 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descripcion') ?>
 
-    <?= $form->field($model, 'requisitos') ?>
-
     <?= $form->field($model, 'fecha_inicio') ?>
 
-    <?php // echo $form->field($model, 'fecha_fin') ?>
+    <?= $form->field($model, 'fecha_fin') ?>
 
     <?php // echo $form->field($model, 'tipo') ?>
+
+    <?php // echo $form->field($model, 'activa')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
