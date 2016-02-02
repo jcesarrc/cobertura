@@ -14,10 +14,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 curl \
 apache2 \
 git \
-php 5 \
+php5 \
 php5-cli \
 php5-curl \
 php5-intl \
+php5-ldap \
 && apt-get clean && \
 rm -rf /tmp/* /var/tmp/*
 
