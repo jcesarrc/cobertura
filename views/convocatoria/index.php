@@ -39,6 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Select2::widget([
                     'name' => 'tipo',
+                    'attribute' => 'tipo',
+                    'model'=>$searchModel,
                     'data' => ArrayHelper::map(Categoria::find()->all(), 'id', 'nombre'),
                     'options' => ['placeholder' => 'Categoría'],
                     'pluginOptions' => [

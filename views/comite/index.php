@@ -3,6 +3,7 @@
 use app\models\Categoria;
 use app\models\Convocatoria;
 use app\models\Subcategoria;
+use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
 use yii\grid\ActionColumn;
 use yii\helpers\ArrayHelper;
@@ -33,15 +34,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'nombre',
-            'fecha_inicio',
+            [
+                'attribute'=>'fecha_inicio',
+                'filter' => DateControl::widget([
+                    'name' => 'fecha_inicio',
+                    'attribute' => 'fecha_inicio',
+                    'model' => $searchModel,
+                    'type' => DateControl::FORMAT_DATE,
+                ]),
+            ],
 
             [
                 'attribute' => 'tipo',
-                'value' => function($model){
-                    return Categoria::findOne(['id'=>$model->tipo])->nombre;
+                'value' => function ($model) {
+                    return Categoria::findOne(['id' => $model->tipo])->nombre;
                 },
                 'filter' => Select2::widget([
                     'name' => 'tipo',
+                    'attribute' => 'tipo',
+                    'model' => $searchModel,
                     'data' => ArrayHelper::map(Categoria::find()->all(), 'id', 'nombre'),
                     'options' => ['placeholder' => 'Categoría'],
                     'pluginOptions' => [
@@ -51,11 +62,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'subtipo',
-                'value' => function($model){
-                    return Subcategoria::findOne(['id'=>$model->subtipo])->nombre;
+                'value' => function ($model) {
+                    return Subcategoria::findOne(['id' => $model->subtipo])->nombre;
                 },
                 'filter' => Select2::widget([
                     'name' => 'subtipo',
+                    'attribute' => 'subtipo',
+                    'model' => $searchModel,
                     'data' => ArrayHelper::map(Subcategoria::find()->all(), 'id', 'nombre'),
                     'options' => ['placeholder' => 'Subcategoría'],
                     'pluginOptions' => [
@@ -65,13 +78,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'convocatoria',
-                'value' => function($model){
-                    if(!empty(Convocatoria::findOne(['id'=>$model->convocatoria])))
-                        return Convocatoria::findOne(['id'=>$model->convocatoria])->descripcion;
+                'value' => function ($model) {
+                    if (!empty(Convocatoria::findOne(['id' => $model->convocatoria])))
+                        return Convocatoria::findOne(['id' => $model->convocatoria])->descripcion;
                     else return "N/A";
                 },
                 'filter' => Select2::widget([
                     'name' => 'convocatoria',
+                    'attribute' => 'convocatoria',
+                    'model' => $searchModel,
                     'data' => ArrayHelper::map(Convocatoria::find()->all(), 'id', 'nombre'),
                     'options' => ['placeholder' => 'Convocatoria'],
                     'pluginOptions' => [
@@ -86,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => '',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::a('Proyectos',['/faer/index2','id'=>$model->id],['class'=>'btn btn-success btn-xs','style'=>'border-radius:4px;']);
+                    return Html::a('Proyectos', ['/faer/index2', 'id' => $model->id], ['class' => 'btn btn-success btn-xs', 'style' => 'border-radius:4px;']);
                 },
             ],
 

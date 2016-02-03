@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Metas Cobertura'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Registrar Metas Cobertura'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,6 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Select2::widget([
                     'name' => 'id',
+                    'attribute' => 'id',
+                    'model'=>$searchModel,
                     'data' => ArrayHelper::map(Categoria::find()->all(), 'id', 'nombre'),
                     'options' => ['placeholder' => 'Categoría'],
                     'pluginOptions' => [
@@ -40,7 +42,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]),
             ],
-            'ano',
+            [
+                'attribute'=>'ano',
+                'value'=>'ano',
+                'filter'=> Html::activeDropDownList($searchModel,
+                    'ano',[
+                        2015 => "2015",
+                        2016 => "2016",
+                        2017 => "2017",
+                        2018 => "2018",
+                        2019 => "2019",
+                        2020 => "2020",
+                    ],['class'=>'form-control']
+                ),
+            ],
             'cobertura:integer',
 
             ['class' => 'yii\grid\ActionColumn'],

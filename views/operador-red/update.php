@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\OperadorRed */
 
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
+$this->title = Yii::t('app', 'Actualizar {modelClass}: ', [
     'modelClass' => 'Operador Red',
-]) . ' ' . $model->id_sui;
+]) . ' ' . $model->razon_social;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Operador Reds'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_sui, 'url' => ['view', 'id' => $model->id_sui]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');

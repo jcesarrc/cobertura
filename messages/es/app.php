@@ -14,6 +14,7 @@ return [
     "Are you sure you want to delete this item?" => "Está seguro de borrar este item?",
     "Create {0}" => "Crear {0}",
     "Update {0}" => "Actualizar {0}",
+    "Update {modelClass}" => "Actualizar {modelClass}",
     "Area Coberturas" => "Areas de cobertura",
     "Fuentes Financiacions" => "Fuentes de financiacion",
     "Fuentesxproyectos" => "Fuentes por proyecto",

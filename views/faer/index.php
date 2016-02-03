@@ -1,6 +1,7 @@
 <?php
 
 use kartik\daterange\DateRangePicker;
+use kartik\widgets\DatePicker;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 //use yii\grid\GridView;
@@ -18,7 +19,7 @@ $global_acum = 0;
 <div class="faer-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Faer'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -45,6 +46,8 @@ $global_acum = 0;
                 },
                 'filter' => \kartik\select2\Select2::widget([
                     'name' => 'nit_ejecuto',
+                    'attribute' => 'nit_ejecuto',
+                    'model' => $searchModel,
                     'data' => ArrayHelper::map(\app\models\OperadorRed::find()->all(), 'nit', 'razon_social'),
                     'options' => ['placeholder' => ''],
                     'pluginOptions' => [
@@ -66,7 +69,7 @@ $global_acum = 0;
                         'convertFormat' => true,
                         'pluginOptions' => [
                             'timePicker' => false,
-                            'format' => 'Y-m-d'
+                            'format' => 'Y-m-d',
                         ]
                     ])],
 
@@ -81,6 +84,7 @@ $global_acum = 0;
                 },
                 'filter' => \kartik\select2\Select2::widget([
                     'name' => 'dpto',
+                    'attribute' => 'dpto',
                     'data' => ArrayHelper::map(\app\models\Divipola::find()->all(), 'id_dpto', 'dpto'),
                     'options' => ['placeholder' => ''],
                     'pluginOptions' => [

@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
             <div class="col-lg-4">
                 <?= Html::dropDownList('comite',null,
                     ArrayHelper::map(Comite::find()->all(), 'id', 'nombre'),
-                    ['prompt' => 'Cualquier comité']
+                    ['prompt' => 'Cualquier comité', 'class'=>'form-control']
                 ) ?>
             </div>
 

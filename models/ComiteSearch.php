@@ -43,6 +43,8 @@ class ComiteSearch extends Comite
     {
         $query = Comite::find();
 
+        //var_dump($params); die();
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use app\components\AccessRule;
+use app\models\Rol;
 use Yii;
 use app\models\OperadorRed;
 use app\models\OperadorRedSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +24,26 @@ class OperadorRedController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                // We will override the default rule config with the new AccessRule class
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['index', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        // Allow users:
+                        'roles' => [
+                            Rol::ROLE_SUPER,
+                            Rol::ROLE_ADMIN,
+                            Rol::ROLE_PROYECTOS
+                        ],
+                    ],
                 ],
             ],
         ];

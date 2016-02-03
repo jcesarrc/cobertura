@@ -85,7 +85,7 @@ class FaerSearch extends Faer
 
         $query = Faer::find();
 
-        if(isset($_POST['comite'])) {
+        if(isset($_POST['comite']) && !empty($_POST['comite'])) {
 
             $comite = $_POST['comite'];
 

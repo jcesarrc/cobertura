@@ -25,22 +25,23 @@ class ConvocatoriaController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-                'access' => [
-                    'class' => AccessControl::className(),
-                    // We will override the default rule config with the new AccessRule class
-                    'ruleConfig' => [
-                        'class' => AccessRule::className(),
-                    ],
-                    'only' => ['index','create', 'update', 'delete'],
-                    'rules' => [
-                        [
-                            'actions' => ['index','create', 'update', 'delete'],
-                            'allow' => true,
-                            // Allow users:
-                            'roles' => [
-                                Rol::ROLE_SUPER,
-                                Rol::ROLE_ADMIN,
-                            ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                // We will override the default rule config with the new AccessRule class
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['index', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        // Allow users:
+                        'roles' => [
+                            Rol::ROLE_SUPER,
+                            Rol::ROLE_ADMIN,
+                            Rol::ROLE_PROYECTOS
                         ],
                     ],
                 ],

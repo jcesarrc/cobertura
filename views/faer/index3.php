@@ -3,7 +3,6 @@
 use kartik\daterange\DateRangePicker;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-//use yii\grid\GridView;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
